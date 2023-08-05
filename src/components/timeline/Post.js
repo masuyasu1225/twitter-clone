@@ -34,7 +34,7 @@ function Post({ displayName, username, verified, text, image, avatar }) {
         <div className="post--footer">
           <ChatBubbleOutline fontSize="small" />
           <Repeat fontSize="small" />
-          <FavoriteBorder fontsize="small" />
+          <FavoriteBorder fontSize="small" />
           <PublishOutlined fontSize="small" />
         </div>
       </div>
