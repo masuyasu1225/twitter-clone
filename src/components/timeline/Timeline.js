@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 import "./Timeline.css";
 import TweetBox from "./TweetBox";
 import Post from "./Post";
@@ -6,9 +7,11 @@ import db from "../../firebase";
 import { collection, getDocs } from "firebase/firestore";
 
 function Timeline() {
+  const [posts, setPosts] = useState([]);
+
   const postData = collection(db, "posts");
   getDocs(postData).then((querySnapshot) => {
-    console.log(querySnapshot.docs.map((doc) => doc.data()));
+    setPosts(querySnapshot.docs.map((doc) => doc.data()));
   });
 
   return (
@@ -20,14 +23,16 @@ function Timeline() {
       {/* TweetBox */}
       <TweetBox />
       {/* Post */}
-      <Post
-        displayName="プログラミングチュートリアル"
-        username="Shin_Engineer"
-        verified={true}
-        text="初めてのツイート"
-        avatar="http://shincode.info/wp-content/uploads/2021/12/icon.png"
-        image="https://source.unsplash.com/random"
-      />
+      {posts.map((post) => (
+        <Post
+          displayName={post.displayName}
+          username={post.username}
+          verified={post.verified}
+          text={post.text}
+          avatar={post.avatar}
+          image={post.image}
+        />
+      ))}
     </div>
   );
 }
