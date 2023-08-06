@@ -5,6 +5,7 @@ import TweetBox from "./TweetBox";
 import Post from "./Post";
 import db from "../../firebase";
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
+import FlipMove from "react-flip-move";
 
 function Timeline() {
   const [posts, setPosts] = useState([]);
@@ -28,17 +29,19 @@ function Timeline() {
       {/* TweetBox */}
       <TweetBox />
       {/* Post */}
-      {posts.map((post) => (
-        <Post
-          key={post.text}
-          displayName={post.displayName}
-          username={post.username}
-          verified={post.verified}
-          text={post.text}
-          avatar={post.avatar}
-          image={post.image}
-        />
-      ))}
+      <FlipMove>
+        {posts.map((post) => (
+          <Post
+            key={post.text}
+            displayName={post.displayName}
+            username={post.username}
+            verified={post.verified}
+            text={post.text}
+            avatar={post.avatar}
+            image={post.image}
+          />
+        ))}
+      </FlipMove>
     </div>
   );
 }
